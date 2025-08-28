@@ -8,4 +8,4 @@ gem 'rubocop', '~> 1.80'
 
 gem 'rspec', '~> 3.13'
 
-gem "colorize", "~> 1.1"
+gem 'colorize', '~> 1.1'
