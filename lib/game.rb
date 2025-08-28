@@ -1,11 +1,8 @@
 require 'colorize'
 
 class Game
-  WIDTH = 7.freeze
-  HEIGHT = 6.freeze
-
   def initialize
-    @grid = Array.new(HEIGHT) { Array.new(WIDTH, ' ') }
+    @grid = Array.new(6) { Array.new(7, ' ') }
   end
 
   def print_grid
