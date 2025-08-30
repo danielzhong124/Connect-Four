@@ -8,15 +8,15 @@ class Player
     @disc = "\u25cf".colorize(color)
   end
 
-  def choose_col
-    print 'Choose a column to drop your next disc (1-7): '
-    col = gets.to_i
-    until col.between?(1, 7)
+  def choose_col(grid)
+    print "#{@name} enter column (1-#{Game::WIDTH}): "
+    col = gets.to_i - 1
+    until col.between?(0, Game::WIDTH) && grid[-1][col] == ' '
       puts 'Invalid move. Try again.'
-      print 'Choose a column to drop your next disc (1-7): '
-      col = gets.to_i
+      print "#{@name} enter column (1-#{Game::WIDTH}): "
+      col = gets.to_i - 1
     end
 
-    col - 1
+    col
   end
 end
