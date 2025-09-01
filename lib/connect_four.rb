@@ -3,6 +3,8 @@
 require_relative 'player'
 
 class ConnectFour
+  attr_reader :grid
+
   WIDTH = 7
   HEIGHT = 6
 
@@ -17,7 +19,7 @@ class ConnectFour
     until winner || grid_full?
       system 'cls'
 
-      row, col = drop_player_disc
+      row, col = player_move
       winner = curr_player if four_in_row?(row, col)
 
       switch_player!
@@ -40,10 +42,14 @@ class ConnectFour
     @curr_player_num = 1 - @curr_player_num
   end
 
-  def drop_player_disc
+  def player_move
     print_grid
-    col = curr_player.choose_col(@grid)
+    col = curr_player.select_col(@grid)
 
+    drop_disc(col)
+  end
+
+  def drop_disc(col)
     row = 0
     row += 1 until @grid[row][col] == ' '
     @grid[row][col] = curr_player.disc
@@ -53,10 +59,10 @@ class ConnectFour
 
   def four_in_row?(row, col)
     # vertical
-    return true if count_connects(row, col, [0, -1]) >= 3
+    return true if count_connects(row, col, [-1, 0]) >= 3
 
     # horizontal
-    return true if count_connects(row, col, [-1, 0]) + count_connects(row, col, [1, 0]) >= 3
+    return true if count_connects(row, col, [0, -1]) + count_connects(row, col, [0, 1]) >= 3
 
     # diagonal
     return true if count_connects(row, col, [-1, -1]) + count_connects(row, col, [1, 1]) >= 3
@@ -68,8 +74,8 @@ class ConnectFour
   def count_connects(row, col, dir, connects = 0)
     return connects if connects >= 3
 
-    row += dir[1]
-    col += dir[0]
+    row += dir[0]
+    col += dir[1]
 
     return connects unless row.between?(0, HEIGHT - 1) && col.between?(0, WIDTH - 1)
     return connects unless @grid[row][col] == curr_player.disc
@@ -87,5 +93,5 @@ class ConnectFour
     puts grid_str.prepend(row_sep)
   end
 
-  private :count_connects, :curr_player, :switch_player
+  private :count_connects
 end
