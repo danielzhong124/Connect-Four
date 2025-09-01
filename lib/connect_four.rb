@@ -2,7 +2,7 @@
 
 require_relative 'player'
 
-class Game
+class ConnectFour
   WIDTH = 7
   HEIGHT = 6
 
@@ -52,8 +52,13 @@ class Game
   end
 
   def four_in_row?(row, col)
+    #vertical
     return true if count_connects(row, col, [0, -1]) >= 3
+
+    #horizontal
     return true if count_connects(row, col, [-1, 0]) + count_connects(row, col, [1, 0]) >= 3
+
+    #diagonal
     return true if count_connects(row, col, [-1, -1]) + count_connects(row, col, [1, 1]) >= 3
     return true if count_connects(row, col, [-1, 1]) + count_connects(row, col, [1, -1]) >= 3
 
@@ -81,4 +86,6 @@ class Game
 
     puts grid_str.prepend(row_sep)
   end
+
+  private :count_connects, :curr_player, :switch_player
 end

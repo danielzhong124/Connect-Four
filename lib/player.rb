@@ -9,11 +9,11 @@ class Player
   end
 
   def choose_col(grid)
-    print "#{@name} enter column (1-#{Game::WIDTH}): "
+    print "#{@name} enter column (1-#{ConnectFour::WIDTH}): "
     col = gets.to_i - 1
     until col.between?(0, Game::WIDTH) && grid[-1][col] == ' '
       puts 'Invalid move. Try again.'
-      print "#{@name} enter column (1-#{Game::WIDTH}): "
+      print "#{@name} enter column (1-#{ConnectFour::WIDTH}): "
       col = gets.to_i - 1
     end
 
