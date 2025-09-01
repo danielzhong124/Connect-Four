@@ -22,10 +22,10 @@ class ConnectFour
 
       switch_player!
     end
-    
+
     system 'cls'
     print_grid
-    puts (winner.nil? ? "It's a draw." : "#{winner.name} wins!")
+    puts(winner.nil? ? "It's a draw." : "#{winner.name} wins!")
   end
 
   def grid_full?
@@ -52,13 +52,13 @@ class ConnectFour
   end
 
   def four_in_row?(row, col)
-    #vertical
+    # vertical
     return true if count_connects(row, col, [0, -1]) >= 3
 
-    #horizontal
+    # horizontal
     return true if count_connects(row, col, [-1, 0]) + count_connects(row, col, [1, 0]) >= 3
 
-    #diagonal
+    # diagonal
     return true if count_connects(row, col, [-1, -1]) + count_connects(row, col, [1, 1]) >= 3
     return true if count_connects(row, col, [-1, 1]) + count_connects(row, col, [1, -1]) >= 3
 
